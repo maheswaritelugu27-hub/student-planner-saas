@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Student Planner SaaS - organize tasks, study sessions, and goals.">
+  <title>StudyFlow | Student Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">✦</span><span>StudyFlow</span></div>
+      <p class="nav-label">WORKSPACE</p>
+      <button class="nav-item active" data-view="dashboard">▦ <span>Dashboard</span></button>
+      <button class="nav-item" data-view="tasks">✓ <span>My Tasks</span></button>
+      <button class="nav-item" data-view="schedule">◷ <span>Study Schedule</span></button>
+      <div class="sidebar-bottom">
+        <div class="mini-card">
+          <div class="mini-icon">🎯</div>
+          <strong>Small steps, big wins.</strong>
+          <p>Keep showing up for your goals.</p>
+        </div>
+        <button id="themeToggle" class="nav-item">◐ <span>Toggle theme</span></button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="todayLabel">YOUR STUDY SPACE</p>
+          <h1 id="greeting">Good morning! 👋</h1>
+          <p class="subheading">Make today count, one task at a time.</p>
+        </div>
+        <div class="top-actions">
+          <div class="date-chip">📅 <span id="todayDate"></span></div>
+          <div class="avatar">S</div>
+        </div>
+      </header>
+
+      <section class="stats-grid">
+        <article class="stat-card purple">
+          <div class="stat-top"><span>Tasks for today</span><span class="stat-icon">▤</span></div>
+          <strong id="todayTasksCount">0</strong>
+          <small>Tasks scheduled today</small>
+        </article>
+        <article class="stat-card green">
+          <div class="stat-top"><span>Completed</span><span class="stat-icon">✓</span></div>
+          <strong id="completedCount">0</strong>
+          <small>Tasks checked off</small>
+        </article>
+        <article class="stat-card orange">
+          <div class="stat-top"><span>Study hours</span><span class="stat-icon">◷</span></div>
+          <strong id="studyHours">0h</strong>
+          <small>Planned study time</small>
+        </article>
+        <article class="stat-card blue">
+          <div class="stat-top"><span>Weekly progress</span><span class="stat-icon">↗</span></div>
+          <strong id="weeklyProgress">0%</strong>
+          <small>Tasks completed this week</small>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel tasks-panel" id="taskPanel">
+          <div class="panel-heading">
+            <div><h2 id="taskHeading">Today's tasks</h2><p>Stay focused on what matters.</p></div>
+            <button class="primary-btn" id="openTaskForm">＋ Add task</button>
+          </div>
+          <form id="taskForm" class="task-form hidden">
+            <div class="form-grid">
+              <label>Task name<input id="taskTitle" type="text" placeholder="e.g. Revise algebra" required maxlength="100"></label>
+              <label>Subject<input id="taskSubject" type="text" placeholder="e.g. Mathematics" maxlength="50"></label>
+              <label>Date<input id="taskDate" type="date" required></label>
+              <label>Time<input id="taskTime" type="time" value="16:00" required></label>
+              <label>Duration (minutes)<input id="taskDuration" type="number" min="5" max="600" value="45" required></label>
+              <label>Priority<select id="taskPriority"><option>Medium</option><option>High</option><option>Low</option></select></label>
+            </div>
+            <div class="form-actions"><button type="button" class="secondary-btn" id="cancelTask">Cancel</button><button type="submit" class="primary-btn">Save task</button></div>
+          </form>
+          <div class="filter-row">
+            <button class="filter-btn active" data-filter="all">All tasks</button>
+            <button class="filter-btn" data-filter="pending">Pending</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+          </div>
+          <div id="taskList" class="task-list"></div>
+          <div id="emptyState" class="empty-state hidden"><div>📝</div><strong>Your plan starts here</strong><p>Add a task to make progress today.</p></div>
+        </div>
+
+        <div class="right-column">
+          <section class="panel progress-panel">
+            <div class="panel-heading"><div><h2>Daily progress</h2><p>A little progress adds up.</p></div></div>
+            <div class="progress-ring-wrap"><div class="progress-ring" id="progressRing"><div class="ring-center"><strong id="ringPercent">0%</strong><span>completed</span></div></div></div>
+            <div class="progress-caption"><span>Today's goal</span><strong id="goalText">0 of 3 tasks</strong></div>
+            <div class="progress-track"><div id="goalBar" class="progress-fill"></div></div>
+            <label class="goal-setting">Daily task goal <input id="dailyGoal" type="number" min="1" max="30" value="3"></label>
+          </section>
+          <section class="panel focus-panel">
+            <div class="focus-top"><div><span class="focus-kicker">FOCUS CORNER</span><h2>Time to concentrate</h2></div><span class="focus-emoji">🍅</span></div>
+            <p>Try a short focus session, then take a well-earned break.</p>
+            <div class="timer-display" id="timerDisplay">25:00</div>
+            <div class="timer-actions"><button id="timerStart" class="primary-btn">▶ Start</button><button id="timerReset" class="secondary-btn">↻ Reset</button></div>
+          </section>
+        </div>
+      </section>
+      <footer>Made for your next big achievement <span>✦</span></footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
